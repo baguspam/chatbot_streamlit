@@ -11,12 +11,12 @@ Chatbot customer service berbasis **AI (Gemini)** , dibangun menggunakan **Strea
 ## ✨ Fitur
 
 - 💬 Chatbot berbasis Gemini AI dengan konteks percakapan
-- 🎓 Pengetahuan lengkap seputar UTPAS (prodi, beasiswa, pendaftaran, kontak, lokasi)
+- 🎓 Pengetahuan lengkap seputar (prodi, beasiswa, pendaftaran, kontak, lokasi)
 - 👋 Pesan selamat datang otomatis saat chatbot dibuka
 - 📋 Sidebar informatif berisi kontak, link pendaftaran, e-learning, dan pengumuman
 - 🔄 Tombol reset percakapan
-- ⚠️ Error handling dengan saran menghubungi tim UTPAS
-- 🎨 Tampilan branded sesuai identitas UTPAS
+- ⚠️ Error handling dengan saran menghubungi CS
+- 🎨 Tampilan branded sesuai identitas
 
 ---
 
