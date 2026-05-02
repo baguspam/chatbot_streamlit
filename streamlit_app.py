@@ -92,6 +92,17 @@ tim UTPAS via WhatsApp +62 813-8154-1471 atau email info@utpas.ac.id.
 """
 
 # ─────────────────────────────────────────────
+# AMBIL API KEY DARI st.secrets
+# ─────────────────────────────────────────────
+# Di Streamlit Community Cloud: tambahkan GOOGLE_API_KEY di menu Secrets
+# Di lokal: buat file .streamlit/secrets.toml berisi:
+#   GOOGLE_API_KEY = "isi-api-key-kamu"
+try:
+    GOOGLE_API_KEY = st.secrets["GOOGLE_API_KEY"]
+except (KeyError, FileNotFoundError):
+    GOOGLE_API_KEY = None
+
+# ─────────────────────────────────────────────
 # HEADER
 # ─────────────────────────────────────────────
 st.markdown("""
@@ -111,9 +122,18 @@ st.divider()
 with st.sidebar:
     st.image("https://utpas.ac.id/images/logo.svg", width=180)
     st.markdown("---")
-    st.subheader("⚙️ Pengaturan")
-    google_api_key = st.text_input("Google AI API Key", type="password",
-                                    help="Dapatkan API key di aistudio.google.com")
+
+    # Jika API key tidak ada di secrets, tampilkan input manual (mode development)
+    if not GOOGLE_API_KEY:
+        st.subheader("⚙️ Pengaturan")
+        manual_key = st.text_input(
+            "Google AI API Key",
+            type="password",
+            help="Masukkan API key untuk mode development lokal"
+        )
+        if manual_key:
+            GOOGLE_API_KEY = manual_key
+
     reset_button = st.button("🔄 Reset Percakapan")
     st.markdown("---")
     st.markdown("**📞 Kontak UTPAS**")
@@ -130,29 +150,23 @@ with st.sidebar:
 # ─────────────────────────────────────────────
 # VALIDASI API KEY
 # ─────────────────────────────────────────────
-if not google_api_key:
-    st.info("🔑 Masukkan **Google AI API Key** di sidebar untuk mulai chat.", icon="ℹ️")
-    st.markdown("""
-    #### Cara mendapatkan API Key:
-    1. Buka [aistudio.google.com](https://aistudio.google.com)
-    2. Klik **Get API Key** → **Create API Key**
-    3. Copy dan paste ke sidebar
-    """)
+if not GOOGLE_API_KEY:
+    st.info("🔑 API Key belum dikonfigurasi. Hubungi administrator.", icon="ℹ️")
     st.stop()
 
 # ─────────────────────────────────────────────
 # INISIALISASI GEMINI CLIENT
 # ─────────────────────────────────────────────
 if ("genai_client" not in st.session_state) or (
-    getattr(st.session_state, "_last_key", None) != google_api_key
+    st.session_state.get("_last_key") != GOOGLE_API_KEY
 ):
     try:
-        st.session_state.genai_client = genai.Client(api_key=google_api_key)
-        st.session_state._last_key = google_api_key
+        st.session_state.genai_client = genai.Client(api_key=GOOGLE_API_KEY)
+        st.session_state._last_key = GOOGLE_API_KEY
         st.session_state.pop("chat", None)
         st.session_state.pop("messages", None)
     except Exception as e:
-        st.error(f"❌ API Key tidak valid: {e}")
+        st.error(f"❌ Gagal menginisialisasi AI: {e}")
         st.stop()
 
 # ─────────────────────────────────────────────
@@ -176,7 +190,7 @@ if reset_button:
     st.rerun()
 
 # ─────────────────────────────────────────────
-# PESAN SELAMAT DATANG (jika belum ada chat)
+# PESAN SELAMAT DATANG
 # ─────────────────────────────────────────────
 if not st.session_state.messages:
     with st.chat_message("assistant"):
