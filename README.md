@@ -1,7 +1,9 @@
-# 🎓 Chatbot Customer Service — Universitas Utpadaka Swastika (UTPAS)
+# 🎓 Tugas Chatbot Customer Service
 
-Chatbot customer service berbasis **AI (Gemini)** untuk website [utpas.ac.id](https://utpas.ac.id), dibangun menggunakan **Streamlit** dan dapat dijalankan langsung di **Google Colab** via ngrok tunnel.
-
+Chatbot customer service berbasis **AI (Gemini)** , dibangun menggunakan **Streamlit** dan dapat dijalankan langsung di **Google Colab** via ngrok tunnel.
+## 🚀 Demo
+<a href="https://chatbotapp-nrrgyubmkptecx4w9z8q2c.streamlit.app/" target="_blank">https://chatbotapp-nrrgyubmkptecx4w9z8q2c.streamlit.app/</a>
+<br/><br/>
 ![Screenshot Chatbot](screenshot-2026-05-02-23-52-08.png)
 
 ---
@@ -100,7 +102,7 @@ Buka browser di `http://localhost:8501`, lalu masukkan Google AI API Key di side
 
 Coba tanyakan hal-hal berikut kepada chatbot:
 
-- *"Apa saja program studi yang tersedia di UTPAS?"*
+- *"Apa saja program studi yang tersedia ?"*
 - *"Bagaimana cara mendaftar sebagai mahasiswa baru?"*
 - *"Beasiswa apa saja yang tersedia?"*
 - *"Di mana lokasi kampus UTPAS?"*
